@@ -1,40 +1,23 @@
-// export default function ReportIssue() {
-//   return (
-//     <div className="container">
-//       <h2>Report Railway Issue</h2>
-
-//       <form>
-//         <div>
-//           <label>Upload Photo</label><br />
-//           <input type="file" />
-//         </div>
-
-//         <div>
-//           <label>Issue Type</label><br />
-//           <select>
-//             <option>Cleanliness</option>
-//             <option>Maintenance</option>
-//             <option>Safety</option>
-//           </select>
-//         </div>
-
-//         <div>
-//           <label>Coach / Station</label><br />
-//           <input type="text" placeholder="e.g. S4 or New Delhi" />
-//         </div>
-
-//         <button type="submit">Submit Issue</button>
-//       </form>
-//     </div>
-//   );
-// }
 import { useState } from "react";
 
-export default function ReportIssue() {
+export default function ReportIssue({ addIssue }) {
+  const [type, setType] = useState("");
+  const [trainNumber, setTrainNumber] = useState("");
+  const [coach, setCoach] = useState("");
+  const [station, setStation] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    addIssue({
+      type,
+      trainNumber,
+      coach,
+      station,
+      status: "Pending",
+    });
+
     setSubmitted(true);
   }
 
@@ -42,10 +25,7 @@ export default function ReportIssue() {
     return (
       <div className="hero">
         <h2>✅ Issue Reported Successfully</h2>
-        <p>
-          Your issue has been recorded and will be reviewed by the railway
-          authorities.
-        </p>
+        <p>Your issue has been recorded.</p>
       </div>
     );
   }
@@ -56,26 +36,48 @@ export default function ReportIssue() {
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Upload Photo</label><br />
-          <input type="file" required />
-        </div>
-
-        <div>
           <label>Issue Type</label><br />
-          <select required>
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+          >
             <option value="">Select issue type</option>
             <option>Cleanliness</option>
             <option>Maintenance</option>
             <option>Safety</option>
-            <option>Other</option>
           </select>
         </div>
 
         <div>
-          <label>Coach / Station</label><br />
+          <label>Train Number</label><br />
           <input
             type="text"
-            placeholder="e.g. S4 or New Delhi"
+            placeholder="e.g. 12303"
+            value={trainNumber}
+            onChange={(e) => setTrainNumber(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Coach Number</label><br />
+          <input
+            type="text"
+            placeholder="e.g. S4, B1"
+            value={coach}
+            onChange={(e) => setCoach(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Station Name</label><br />
+          <input
+            type="text"
+            placeholder="e.g. Kanpur Central"
+            value={station}
+            onChange={(e) => setStation(e.target.value)}
             required
           />
         </div>

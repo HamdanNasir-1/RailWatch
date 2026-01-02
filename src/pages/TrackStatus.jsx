@@ -1,45 +1,9 @@
-// export default function TrackStatus() {
-//   const mockIssues = [
-//     {
-//       id: 1,
-//       type: "Cleanliness",
-//       location: "Coach S4",
-//       status: "Pending",
-//     },
-//     {
-//       id: 2,
-//       type: "Maintenance",
-//       location: "New Delhi Station",
-//       status: "In Progress",
-//     },
-//   ];
-
-//   return (
-//     <div className="hero">
-//       <h2>Track Issue Status</h2>
-
-//       {mockIssues.map((issue) => (
-//         <div
-//           key={issue.id}
-//           style={{
-//             background: "#fff",
-//             padding: "15px",
-//             marginBottom: "10px",
-//             borderRadius: "6px",
-//           }}
-//         >
-//           <strong>{issue.type}</strong>
-//           <p>{issue.location}</p>
-//           <p>Status: <b>{issue.status}</b></p>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
 export default function TrackStatus({ issues }) {
   return (
     <div className="hero">
       <h2>Track Issue Status</h2>
+
+      {issues.length === 0 && <p>No issues reported yet.</p>}
 
       {issues.map((issue) => (
         <div
@@ -47,14 +11,26 @@ export default function TrackStatus({ issues }) {
           style={{
             background: "#fff",
             padding: "15px",
-            marginBottom: "10px",
+            marginBottom: "12px",
             borderRadius: "6px",
           }}
         >
           <strong>{issue.type}</strong>
-          <p>{issue.location}</p>
-          <p>
-            Status: <b>{issue.status}</b>
+
+          <p>🚆 Train: {issue.trainNumber}</p>
+          <p>🚪 Coach: {issue.coach}</p>
+          <p>📍 Station: {issue.station}</p>
+
+          <p
+            className={`status-text ${
+              issue.status === "Resolved"
+                ? "status-resolved"
+                : issue.status === "In Progress"
+                ? "status-progress"
+                : "status-pending"
+            }`}
+          >
+            Status: {issue.status}
           </p>
         </div>
       ))}

@@ -143,3 +143,20 @@ select {
     width: 100%;
   }
 }
+/* ---------- Status Text ---------- */
+
+.hero .status-text {
+  font-weight: 600;
+}
+
+.hero .status-pending {
+  color: #666 !important;
+}
+
+.hero .status-progress {
+  color: #e65100 !important;
+}
+
+.hero .status-resolved {
+  color: #2e7d32 !important;
+}
